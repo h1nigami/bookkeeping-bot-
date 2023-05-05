@@ -48,6 +48,7 @@ async def push_to_db(msg: types.Message):
     product_name = msg.text
     product_name = product_name.split()
     await db_table_value(product_name[1], int(product_name[2]), int(product_name[3]))
+    await message.reply('Отличный выбор')
 
 
 
