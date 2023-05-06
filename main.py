@@ -2,6 +2,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from config import TOKEN , CON
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 import time
+import psycopg2
 
 
 CUR = CON.cursor()
@@ -21,8 +22,6 @@ async def db_table_value(name:str, price:int, count:int):
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
-
-
 
 
 @dp.message_handler(commands=['start'])
@@ -73,7 +72,7 @@ async def power_off(message):
 
 @dp.message_handler(commands=['show'])
 async def show_db(message):
-    await message.reply(CUR.execute(f"SELECT * FROM products").fetchall())
+    await message.reply(CUR.execute(f"SELECT name, price, count FROM products").fetchall())
     return
 
 if __name__ == '__main__':
